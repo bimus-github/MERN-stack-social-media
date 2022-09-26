@@ -30,6 +30,7 @@ const Auth = () => {
   const classes = useStyles();
   const history = useNavigate();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
   const [form, setForm] = useState(initialState);
 
   const [isSignup, setIsSingup] = useState(false);
@@ -59,9 +60,9 @@ const Auth = () => {
     console.log(form);
 
     if (isSignup) {
-      dispatch(signup({ form, history })).then(() => history("/"));
+      dispatch(signup(form, history));
     } else {
-      dispatch(signin({ form, history })).then(() => history("/"));
+      dispatch(signin(form, history));
     }
   };
 

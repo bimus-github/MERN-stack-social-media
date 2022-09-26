@@ -28,6 +28,8 @@ function Form({ currentId, setCurrentId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log(postData);
+
     if (currentId) {
       dispatch(
         updatePost(currentId, { ...postData, name: user?.result?.name })
@@ -61,7 +63,7 @@ function Form({ currentId, setCurrentId }) {
   }
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6} raised>
       <form
         autoComplete="off"
         noValidate

@@ -3,9 +3,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/auth.js";
 
 export const signin = async (req, res) => {
-  const {
-    form: { email, password },
-  } = req.body;
+  const { email, password } = req.body;
 
   try {
     const exsistingUser = await User.findOne({ email });
@@ -24,8 +22,10 @@ export const signin = async (req, res) => {
     const token = jwt.sign(
       { email: exsistingUser.email, id: exsistingUser._id },
       "test",
-      { clockTimestamp: new Date().getTime() }
+      { expiresIn: 60 * 60 }
     );
+
+    console.log(`token ${token}`);
 
     res.status(200).json({ result: exsistingUser, token });
   } catch (e) {
@@ -58,18 +58,9 @@ export const signup = async (req, res) => {
         name: `${firstName} ${lastName}`,
       });
 
-      const token = jwt.sign(
-        { email: result.email, id: result._id },
-        "test",
-        {
-          clockTimestamp: new Date().getTime(),
-        },
-        (err, decoded) => {
-          if (err) {
-            localStorage.removeItem("token");
-          }
-        }
-      );
+      const token = jwt.sign({ email: result.email, id: result._id }, "test", {
+        expiresIn: 60 * 60,
+      });
 
       res.status(201).json({ result, token });
     });

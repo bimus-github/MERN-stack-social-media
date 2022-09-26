@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
-import memories from "../../images/memories.jpg";
+import memoriesLogo from "../../images/memoriesLogo.png";
+import memoriesText from "../../images/memoriesText.png";
 import useStyles from "./styles";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ const Navbar = () => {
   const logout = () => {
     dispatch({ type: LOGOUT });
 
-    history("/");
+    history("/auth");
     setUser(null);
   };
 
@@ -27,21 +28,21 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to="/"
-          className={classes.heading}
-          variant="h2"
-          align="center"
-        >
-          Memories
-        </Typography>
-        <img
-          src={memories}
-          className={classes.image}
-          alt="memories"
-          height="60"
-        />
+        <Link to="/" className={classes.brandContainer}>
+          <img
+            component={Link}
+            to="/"
+            src={memoriesText}
+            alt="icon"
+            height="45px"
+          />
+          <img
+            className={classes.image}
+            src={memoriesLogo}
+            alt="icon"
+            height="40px"
+          />
+        </Link>
       </div>
       <Toolbar className={classes.toolbar}>
         {user ? (

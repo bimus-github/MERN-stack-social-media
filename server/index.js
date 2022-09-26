@@ -14,6 +14,9 @@ app.use(cors());
 
 app.use("/posts", postRouter);
 app.use("/auth", authRouter);
+app.get("/", (req, res) => {
+  res.send("App ishlamoqda!!!");
+});
 
 const CONNECTION_URL =
   "mongodb+srv://muhammadAmin:muhammadAmin@cluster0.2fwfoga.mongodb.net/?retryWrites=true&w=majority";
